@@ -1,0 +1,89 @@
+% Pixhawk ---------------------------------------------------------------------------------------------------------
+\section{Piloto automático - Pixhawk}
+
+\subsection{Introdução}
+
+Escolheu-se usar o Pixhawk como o piloto automático de cada avião. Pixhawk é um projeto independente de {\it hardware} aberto com o objetivo de proporcionar um piloto automático a baixo custo e de alto desempenho. Dentre as opções de pilotos automáticos disponíveis no mercado, decidiu-se que o Pixhawk tem o melhor custo-benefício para o projeto.
+
+O Pixhawk é uma plataforma completa de {\it hardware} e {\it software}, bem como um computador, e pode executar várias aplicações de alto nível. Ele oferece um ambiente de programação compatível com sistemas Unix / Linux, o que facilita o desenvolvimento de aplicações de {\it software} que rodem nele. O sistema Pixhawk possui capacidade de {\it multithreading}, ou seja, pode executar várias tarefas simultaneamente sem que uma interfira na outra através do compartilhamento de recursos do processo. Além disso, ele possui funções de piloto automático integrado com logs detalhados de missões e comportamento de voo.
+
+Algumas das características mais importantes do Pixhawk são~\cite{docPixhawk}:
+\begin{itemize}
+\item Processador avançado Cortex® ARM 32 bits rodando NuttX RTOS;
+\item 14 saídas PWM / servo;
+\item Opções de conectividade para periféricos adicionais (UART, I2C, CAN);
+\item Fontes de alimentação redundantes e {\it failover} automático;
+\item Cartão microSD que permite gravação de longos logs de voo.
+\end{itemize}
+
+Dimensões do Pixhawk~\cite{docPixhawk}:
+Peso: 38g;
+Largura: 50mm;
+Espessura: 15.5mm;
+Comprimento: 81.5mm.
+
+\textcolor{red}{colocar foto aqui}
+
+A preparação do Pixhawk para voo consiste em duas etapas, instalação do {\it firmware} no dispositivo e a calibração dos sensores ligados a ele. As próximas seções descrevem em detalhe essas duas etapas. A documentação oficial do Pixhawk pode ser encontrada no link \url{http://ardupilot.org/ardupilot/index.html#}.
+
+\subsection{Instalação de firmware e desenvolvimento de aplicações}
+
+A instalação do {\it firmware} no dispositivo pode ocorrer de duas formas, pelo uso de um programa de Estação de Controle Terrestre (ECT) ou diretamente pelo uso de ferramentas de desenvolvedor, sem o uso de um programa auxiliar. Uma ECT é uma aplicação de {\it software} que roda em um computador de uma estação terrestre e que se comunica com um VANT pelo uso de telemetria sem fio. Ela é capaz de mostrar os dados de performance e posição provindos do piloto automático em tempo-real e pode ser usada para controlar o VANT em voo, mandando comandos para o piloto automático~\cite{docPixhawk}. 
+
+As principais ECT's disponíveis são Mission Planner, APM Planner 2, MAVProxy, QGroundControl e UgCS. Neste projeto, decidiu-se utilizar a ECT QGroundControl pelo fato de ser a única ECT disponível em todos os sistemas operacionais, Windows, Mac OS X, Linux, Android e iOS. Além disso, QGroundControl é um programa mais estável em relação aos outros e possui uma interface simples e eficiente. \textcolor{red}{colocar imagem do QGroundControl}
+
+O uso de uso de uma ECT facilita muito a instalação do {\it firmware}. Ela cuida de todo o processo de conexão com o dispositivo, que ocorre pelo protocolo Mavlink e será explicado posteriormente nesse capítulo. As ECT's já fornecem versões atuais e estáveis de {\it firmware} para todos os tipos de veículos não tripulados que podem usar o Pixhawk. Porém, elas não permitem a instalação de outras versões de {\it firmware} que não sejam as disponibilizadas por elas. Assim, o desenvolvimento de aplicações e a alteração dos {\it firmwares} padrões disponibilizados exigem o uso de ferramentas de desenvolvedor para a instalação do {\it firmware} no Pixhawk~\cite{docDesPixhawk}.
+
+Para a instalação do {\it firmware} através do QGroundControl, basta abrir a aba correspondente a tal ação, selecionar o tipo de veículo utilizado e seguir os passos fornecidos pelo próprio programa. Assim, será instalado a versão mais recente de {\it firmware} disponível para esse tipo de veículo~\cite{docPixhawk}.
+
+\subsubsection{Desenvolvimento de aplicações}
+
+
+\subsection{Calibração de sensores}
+
+O Pixhawk já possui alguns sensores imbutidos:
+\begin{itemize}
+\item Giroscópio ST Micro L3GD20 (3 eixos, 16 bits);
+\item Acelerômetro e Magnetômetro ST Micro LSM303D (3 eixos 14-bits);
+\item Acelerômetro e Giroscópio Invensense MPU 6000 3 eixos;
+\item Barômetro MEAS MS5611.
+\end{itemize}
+
+Além deles, acrescentou-se ao sistema:
+\begin{itemize}
+\item \textcolor{red}{Tudo de Pitot;}
+\item Magnetômetro e GPS 3DR;
+\item Lidar-Lite LL-905.
+\end{itemize}
+
+A calibração dos sensores ocorre pelo uso de uma ECT. O programa QGroundControl já possui rotinas de calibração para todos esse sensores. Assim, o processo de calibração consiste de conectar o Pixhawk ao QGroundControl, abrir a aba correspondente a calibração de sensores e seguir os passos fornecidos pelo próprio programa. \textcolor{red}{colocar imagem do QGroundControl}
+
+Pode-se observar a presença redundante de sensores no sistema. Isso assegura uma maior confiabilidade nos dados obtidos. Como aeronaves podem sofrer vibrações muito fortes durante o voo, a redundância de sensores é essencial para esse projeto~\cite{docPixhawk}.
+
+\subsection{Diagramas de conexões}
+
+O sensor lidar pode ser conectado ao Pixhawk de duas formas, pelo protocolo I2C na porta I2C e por {\it pulse-width-modulation} (PWM) na trilha PWM. De acordo com a documentação do Pixhawk, o lidar utilizado apresenta problemas de interferência com outros dispositivos quando conectado na porta I2C. Assim, escolheu-se a conexão por PWM. Um diagrama de conexão pode ser vista na tabela \ref{tab:lidarPWM} e o \textcolor{red}{esquema de montagem pode ser visto na figura}, onde o valor do resistor pode variar entre 200$\Omega$ e 1$k\Omega$~\cite{docPixhawk}. Mais detalhes sobre a conexão podem ser encontrados em \url{http://ardupilot.org/copter/docs/common-rangefinder-lidarlite.html?highlight=lidar#}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c}
+Sinal LIDAR-Lite & Sinal Pixhawk                       \\ \hline
+J1               & CH6 Out - V+                        \\
+J2               & CH6 Out - Signal (sinal interno 55) \\
+J3               & CH5 Out - Signal (sinal interno 54) \\
+J4               &                                     \\
+J5               &                                     \\
+J6               & Ch6 Out - Ground                   
+\end{tabular}
+\caption{Diagrama de conexão entre o Lidar e o Pixhawk.}
+\label{tab:lidarPWM}
+\end{table}
+
+O Pixhawk pode ser energizado de duas formas, pela porta "power", que é o método mais comum,  e pela trilha de portas de servos pelo uso de um BEC de 5V. Com a conexão do sensor lidar nas postas PWM, a energização da trilha de portas de servos com 5V torna-se necessária. Como não é recomendado energizar o Pixhawk somente por essa trilha, decidiu-se energizar o Pixhawk das duas formas, redundantemente. Assim, se a voltagem fornecida na porta "power"  cair, o Pixhawk continua energizado. Formas mais avançadas de conexão podem ser encontradas em \url{http://ardupilot.org/copter/docs/common-powering-the-Pixhawk.html#common-powering-the-Pixhawk}, como, por exemplo, energização triplo-redundante~\cite{docPixhawk}.
+
+Um diagrama geral pode ser visto na 
+\textcolor{red}{Um diagrama geral pode ser visto na  figura}
+
+\subsection{Pouso automático}
+
+\url{http://ardupilot.org/copter/docs/common-rangefinder-lidarlite.html?highlight=lidar#}

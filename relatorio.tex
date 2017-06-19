@@ -1,0 +1,211 @@
+%% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[a4paper,oneside,brazil,11pt,a4paper,openright,titlepage,usenames,dvipsnames]{book}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{array}
+\usepackage{verbatim}
+\usepackage{calc}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% Classe alternativa, apropriada para impressão frente-verso. Inclui páginas em branco
+% de forma que capítulos sempre tenham início na página à direita:
+% \documentclass[11pt,a4paper,openright,titlepage]{book}
+
+% Pacotes
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[thmmarks,amsmath]{ntheorem}%\usepackage{amsthm}
+\usepackage{boxedminipage}
+\usepackage{geometry}
+\usepackage{theorem}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\usepackage{url}
+\usepackage{afterpage}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{rotating}
+\usepackage{makeidx}
+\usepackage{indentfirst}
+
+
+% Pacotes para adiçao de figuras do inkscape
+\usepackage{graphicx}
+\usepackage{import}
+
+% Pacotes para Sumário
+%\usepackage[tocflat]{tocstyle}
+\usepackage[tocgraduated]{tocstyle}
+\usetocstyle{standard}
+
+
+% Escolher um dos seguintes formatos:
+\usepackage{ft2unb} % segue padrãot de fontes do Latex
+
+\makeindex
+
+\makeatother
+
+\usepackage{babel}
+
+% Begin Doc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\pagestyle{empty}
+
+\grau{Engenheiro de Controle e Automação}
+
+\tipodemonografia{TRABALHO DE GRADUAÇÃO 1}
+
+\titulolinhai{TÍTULO DO TRABALHO DIVIDIDO EM}
+
+\titulolinhaii{MAIS DE UMA LINHA PARA TÍTULOS}
+
+\titulolinhaiii{REALMENTE LONGOS COMO ESTE}
+
+\titulolinhaiv{}
+
+\autori{Eduardo Moura Cirilo Rocha}
+
+\autorii{}
+
+\autoriii{}
+
+\begin{comment}
+Data de defesa: mês e ano
+\end{comment}
+
+
+\mes{Junho} 
+\ano{2017}
+
+%Comandos para criar a capa e a página de assinaturas ------------------------------------
+
+\capaprincipal 
+\capaassinaturas
+
+%Ficha Catalográfica ------------------------------------------------------------------------------------
+
+%\include{ficha_catalografica}
+
+%Dedicatória ----------------------------------------------------------------------------------------------
+\frontmatter
+
+\dedicatoriaautori{um beijo pra minha mãe, pro meu pai, e pra você}
+
+\dedicatoriaautorii{Dedicatória do autor 2}
+
+\dedicatoriaautoriii{Dedicatória do autor 3}
+
+%\dedicatoria 
+
+%Agradecimentos -----------------------------------------------------------------------------------------
+\agradecimentosautori{Agradecimentos!}
+
+
+\agradecimentosautorii{A inclusão desta seção de agradecimentos é
+opcional e fica à critério do(s) autor(es), que caso deseje(em) inclui-la
+deverá(ao) utilizar este espaço, seguindo esta formatação.}
+
+
+\agradecimentosautoriii{A inclusão desta seção de agradecimentos
+é opcional e fica à critério do(s) autor(es), que caso deseje(em)
+inclui-la deverá(ao) utilizar este espaço, seguindo esta formatação.}
+
+%\agradecimentos
+
+%Resumo -------------------------------------------------------------------------------------------------
+%\resumo{resumo}{Resumo!
+
+%\medskip{}
+
+
+%Palavras Chave: bla, ble, bli
+
+%}\vspace*{2cm}
+
+
+%Listas de conteúdo, figuras e tabelas -----------------------------------------------------------
+\sumario 
+%\listadefiguras 
+%\listadetabelas
+
+%Lista de Símbolos ------------------------------------------------------------------------------------
+%\include{simbolos}
+
+%Corpo Principal ---------------------------------------------------------------------------------------
+%Capitulos -----------------------------------------------------------------------------------------------
+
+\mainmatter 
+\setcounter{page}{1} 
+\pagenumbering{arabic} 
+\pagestyle{plain}
+
+\include{Cap/cap_Introducao}
+\include{Cap/cap_Sistema}
+\include{Cap/cap_Sistema_pixhawk}
+\include{Cap/cap_Sistema_gumstix}
+\include{Cap/cap_Sistema_mavlink_radios}
+\include{Cap/cap_Resultados}
+\include{Cap/cap_Conclusoes}
+
+%Bibliografia ---------------------------------------------------------------------------------------------
+%\renewcommand{\bibname}{REFERÊNCIAS BIBLIOGRÁFICAS} 
+%\addcontentsline{toc}{chapter}{REFERÊNCIAS BIBLIOGRÁFICAS} 
+%\chapter*{REFERÊNCIAS BIBLIOGRÁFICAS}
+\newpage
+\bibliography{bib}{}
+\bibliographystyle{plain}
+
+
+%Anexos -------------------------------------------------------------------------------------------------
+\anexos 
+\makeatletter 
+% não retirar estes comandos 
+\renewcommand{\@makechapterhead}[1]{%
+  {\parindent \z@ \raggedleft \setfontarial\bfseries          
+\LARGE \thechapter. \space\space      
+\uppercase{#1}\par     
+\vskip 40\p@   
+} 
+} 
+\makeatother
+
+%Anexo I: Descriçao do CD
+\include{anexo_CD}
+
+\refstepcounter{noAnexo}
+
+%Anexo II: Programas Utilizados
+\include{anexo_Codigos}
+
+\refstepcounter{noAnexo}
+
+\begin{comment}
+Acrescente mais anexos conforme julgar necessário.
+\end{comment}
+
+\end{document}
