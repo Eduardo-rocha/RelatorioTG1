@@ -24,7 +24,9 @@ Comprimento: 81.5mm.
 
 \textcolor{red}{colocar foto aqui}
 
-A preparação do Pixhawk para voo consiste em duas etapas, instalação do {\it firmware} no dispositivo e a calibração dos sensores ligados a ele. As próximas seções descrevem em detalhe essas duas etapas. A documentação oficial do Pixhawk pode ser encontrada no link \url{http://ardupilot.org/ardupilot/index.html#}.
+A preparação do Pixhawk para voo consiste principalmente em duas etapas, instalação do {\it firmware} no dispositivo e a calibração dos sensores ligados a ele. As próximas seções descrevem em detalhe essas duas etapas.
+Além disso, deve-se configurar o modo de segurança {\it Failsafe}, que define o comportamento da aeronave com a perda de comunicação com a estação base, e deve-se configurar o modo de armação do motor, que garante que o motor nunca se ligará quando o avião não estiver pronto para voo.
+A documentação oficial do Pixhawk pode ser encontrada no link \url{http://ardupilot.org/ardupilot/index.html#}.
 
 \subsection{Instalação de firmware e desenvolvimento de aplicações}
 
@@ -51,7 +53,7 @@ O Pixhawk já possui alguns sensores imbutidos:
 
 Além deles, acrescentou-se ao sistema:
 \begin{itemize}
-\item \textcolor{red}{Tudo de Pitot;}
+\item {Tudo de Pitot PX4 v1.0;}
 \item Magnetômetro e GPS 3DR;
 \item Lidar-Lite LL-905.
 \end{itemize}
@@ -84,6 +86,6 @@ O Pixhawk pode ser energizado de duas formas, pela porta "power", que é o método
 Um diagrama geral pode ser visto na 
 \textcolor{red}{Um diagrama geral pode ser visto na  figura}
 
-\subsection{Pouso automático}
+\subsection{Pouso automático (sensor Lidar)}
 
 \url{http://ardupilot.org/copter/docs/common-rangefinder-lidarlite.html?highlight=lidar#}
