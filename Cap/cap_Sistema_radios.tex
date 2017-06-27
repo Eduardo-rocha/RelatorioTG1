@@ -1,4 +1,82 @@
 % Rádios ---------------------------------------------------------------------------------------------------------
-\section{Rádios de comunicação - ???}
+\section{Rádios de comunicação - Pico Series P900 Encapsulado}
+
+Esta seção foi inteiramente baseada na referência \cite{manualRadio}, a documentação dos módulos P900.
+
 \subsection{Introdução}
-aaa
+
+Um {\it modem} P900 é capaz de fornecer comunicação em série sem fio de alto desempenho
+em topologias robustas de ponto a ponto, em malha ou ponto a multiponto. Esses rádios são capazes de realizar comunicação de longo alcance e podem atingir velocidades de transmissão muito rápidas.
+Módulos dessa linha operam dentro da banda de frequências 902-928 MHz usando tecnologia FHSS, provendo comunicação assíncrona e sem fio entre equipamentos com interface de comunicação serial.
+
+Por serem pequenos e com excelente performance, esses rádios são ideais para esse projeto, pois eles devem estar embarcados em todas as aeronaves. 
+
+\textcolor{red}{O módulo utilizado pode ser visto na figura}
+
+\subsection{Especificações do P900}
+
+É importante mencionar que esse modelo é compatível com nível lógico de 3.3V, que corresponde com o nível lógico da porta USB do computador Gumstix Overo COM. Assim, esses {\it modem} pode ser conectado diretamente no computador, se a necessidade de conversores de nível lógico.
+
+A tabela \ref{tab:specP900} mostra algumas das especificações mais importantes a serem levadas em consideração:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|}
+\hline Frequência de operação & 902 - 928 MHz                      \\ \hline
+Detecção de erro & 32 bits de CRC, ARQ                        \\ \hline
+Alcance               & 40 milhas ($\approx 60$ km) \\ \hline
+Potência de saída             & de 100mW a 1W \\ \hline
+Velocidade de comunicação            &      até 230,4 kbps assíncrono                               \\ \hline
+Temperatura de operação máxima              &     até 85ºC         \\ \hline
+Voltagem de entrada (Vin)               & 8 - 30Vdc                   \\ \hline
+\end{tabular}
+\caption{Especificações dos módulos Pico Series P900~\cite{manualRadio}.}
+\label{tab:specP900}
+\end{table}
+
+
+
+\subsection{Configuração dos rádios}
+
+Qualquer módulo P900 pode ser configurado como coordenador primário, coordenador secundário, coordenador ocioso ou remoto (escravo) em topologias de ponto a ponto, em malha ou ponto a multiponto.
+Como todas as aeronaves precisam se comunicar entre si, optou-se por utilizar a topologia em malha. Assim, o emissor pode enviar um pacote de dados para todos os receptores ao mesmo tempo. Por ser uma rede pequena, decidiu-se também definir apenas um coordenador primário e 3 módulos remotos. Uma explicação detalhada sobre todas as topologias de operação e tipos de configurações dos rádios pode ser encontrada documentação do rádio, referência~\cite{manualRadio}.
+
+O módulo possui LEDs que auxiliam na determinação de seu estado atual. A tabela \ref{tab:ledP900} descreve o significado de cada LED.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|}
+\hline PWR (azul) & Aceso quando o módulo está conectado a uma fonte de energia.                      \\ \hline
+485 (azul) & Aceso quando a porta de dados do módulo está configurada como uma                       \\ 
+& porta RS485.                        \\ \hline
+TX LED (vermelho)              & Aceso quando o {\it modem} está transmitindo dados. \\ \hline
+RX LED (verde)            & Quando aceso, significa que o módulo está sincronizado e recebeu \\ 
+           & pacotes válidos. \\ \hline
+RSSI (3x Green)          &      O número de LEDs acesos indica a força do sinal.                           \\ \hline
+\end{tabular}
+\caption{Significado dos LEDs no módulo P900 encapsulado~\cite{manualRadio}.}
+\label{tab:ledP900}
+\end{table}
+
+Para se configurar os {\it modens}, eles devem estar em modo de comando e conectado a um computador via conexão serial. Para isso, utilizou-se o programa para Windows HyperTerminal. Há dois modos de colocar um módulo em modo de comando:
+\begin{enumerate}
+\item Conectar o módulo desligado (desconectado de sua fonte de alimentação) em um computador via conexão serial configurada para 9600 bps. Em seguida, ligar o módulo enquanto seu botão CONFIG está sendo pressionado.
+\item Conectar o módulo ligado em um computador via conexão serial configurada para 9600 bps. Em seguida, digitar '+++' e esperar um segundo.
+\end{enumerate}
+
+Após entrar no modo de comando, o monitor vai mostrar a resposta do módulo 'NO CARRIER OK', como na 
+\textcolor{red}{figura radio123}.
+Para sair do modo de comando, basta digitar 'ATA' e pressionar a tecla 'Enter'.
+
+Em modo comando, pode-se verificar todas as configurações de um módulo pelos valores de seus registradores. Por exemplo, o registrador S101 indica qual o modo de operação desse módulo, 2 para remoto e 4 para coordenador primário. Para navegar entre as configurações dos módulos e altera-las, deve-se utilizar os comandos de fábrica. A \textcolor{red}{figura radio 321} mostra exemplos da utilização de comandos, onde as marcações significam:
+\begin{enumerate}[label=\Alph*)]
+\item Comando AT\&F1 - Definir registradores para padrão de fábrica de coordenador primário.\item Comando AT\&W - Escrever mudanças na memória.\item Comando AT\&V - Mostrar configurações (imprimi na tela os dados que estão na parte branca da imagem).\item Registrador S101 - Modo de operação está definido com 4, modo de coordenador primário.\item Registrador S104 - Endereço de rede em seu valor padrão de fábrica, todas as unidades de rede da malha devem ter esse mesmo valor. Recomenda-se mudar para um valor diferente do padrão.\item Registrador S133 - Tipo de rede, 2 ou 3 para em malha.\item Registrador S140 - Endereço de destino. O padrão é FF:FF:FF:FF:FF:FF que significa que os pacotes serão enviados para todos os dispositivos na rede. Isso pode ser alterado para o endereço MAC de um dispositivo específico.\item MAC - Endereço MAC desse dispositivo definido em fábrica.
+\end{enumerate}
+
+Mais exemplos de configurações podem ser encontradas na documentação, referência~\cite{manualRadio}, assim como configurações avançadas de como evitar colisões na rede, de roteamento de rede e de sincronização de rede. Como a rede em questão é pequena e simples, decidiu-se não detalhar essas configurações aqui, pois elas não serão utilizadas nesse ponto do projeto.
+
+
+
+
+
+
