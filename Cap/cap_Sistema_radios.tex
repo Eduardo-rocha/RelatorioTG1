@@ -11,7 +11,13 @@ Módulos dessa linha operam dentro da banda de frequências 902-928 MHz usando tec
 
 Por serem pequenos e com excelente performance, esses rádios são ideais para esse projeto, pois eles devem estar embarcados em todas as aeronaves. 
 
-\textcolor{red}{O módulo utilizado pode ser visto na figura}
+O módulo utilizado pode ser visto na figura \ref{fig:radios}, onde a esquerda encontra-se a versão utilizada, que é encapsulada.
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .4\textwidth]{figs/radio}
+\caption{{\it Modem} Pico Series P900~\cite{manualRadio}.}
+\label{fig:radios}
+\end{figure}
 
 \subsection{Especificações do P900}
 
@@ -24,7 +30,7 @@ A tabela \ref{tab:specP900} mostra algumas das especificações mais importantes a
 \begin{tabular}{|l|c|}
 \hline Frequência de operação & 902 - 928 MHz                      \\ \hline
 Detecção de erro & 32 bits de CRC, ARQ                        \\ \hline
-Alcance               & 40 milhas ($\approx 60$ km) \\ \hline
+Alcance               & 40 milhas ($\approx 64$ km) \\ \hline
 Potência de saída             & de 100mW a 1W \\ \hline
 Velocidade de comunicação            &      até 230,4 kbps assíncrono                               \\ \hline
 Temperatura de operação máxima              &     até 85ºC         \\ \hline
@@ -58,22 +64,42 @@ RSSI (3x Green)          &      O número de LEDs acesos indica a força do sinal.
 \label{tab:ledP900}
 \end{table}
 
-Para se configurar os {\it modens}, eles devem estar em modo de comando e conectado a um computador via conexão serial. Para isso, utilizou-se o programa para Windows HyperTerminal. Há dois modos de colocar um módulo em modo de comando:
+Para se configurar os {\it modens}, eles devem estar em modo de comando e conectados a um computador via conexão serial. Para isso, utilizou-se o programa para Windows HyperTerminal. Há dois modos de colocar um módulo em modo de comando:
 \begin{enumerate}
 \item Conectar o módulo desligado (desconectado de sua fonte de alimentação) em um computador via conexão serial configurada para 9600 bps. Em seguida, ligar o módulo enquanto seu botão CONFIG está sendo pressionado.
 \item Conectar o módulo ligado em um computador via conexão serial configurada para 9600 bps. Em seguida, digitar '+++' e esperar um segundo.
 \end{enumerate}
 
 Após entrar no modo de comando, o monitor vai mostrar a resposta do módulo 'NO CARRIER OK', como na 
-\textcolor{red}{figura radio123}.
+figura \ref{fig:radio123}.
 Para sair do modo de comando, basta digitar 'ATA' e pressionar a tecla 'Enter'.
 
-Em modo comando, pode-se verificar todas as configurações de um módulo pelos valores de seus registradores. Por exemplo, o registrador S101 indica qual o modo de operação desse módulo, 2 para remoto e 4 para coordenador primário. Para navegar entre as configurações dos módulos e altera-las, deve-se utilizar os comandos de fábrica. A \textcolor{red}{figura radio 321} mostra exemplos da utilização de comandos, onde as marcações significam:
-\begin{enumerate}[label=\Alph*)]
-\item Comando AT\&F1 - Definir registradores para padrão de fábrica de coordenador primário.\item Comando AT\&W - Escrever mudanças na memória.\item Comando AT\&V - Mostrar configurações (imprimi na tela os dados que estão na parte branca da imagem).\item Registrador S101 - Modo de operação está definido com 4, modo de coordenador primário.\item Registrador S104 - Endereço de rede em seu valor padrão de fábrica, todas as unidades de rede da malha devem ter esse mesmo valor. Recomenda-se mudar para um valor diferente do padrão.\item Registrador S133 - Tipo de rede, 2 ou 3 para em malha.\item Registrador S140 - Endereço de destino. O padrão é FF:FF:FF:FF:FF:FF que significa que os pacotes serão enviados para todos os dispositivos na rede. Isso pode ser alterado para o endereço MAC de um dispositivo específico.\item MAC - Endereço MAC desse dispositivo definido em fábrica.
-\end{enumerate}
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .8\textwidth]{figs/radio123}
+\caption{Visualização do programa HyperTerminal ao se se conectar o {\it modem} em modo de comando~\cite{manualRadio}.}
+\label{fig:radio123}
+\end{figure}
 
-Mais exemplos de configurações podem ser encontradas na documentação, referência~\cite{manualRadio}, assim como configurações avançadas de como evitar colisões na rede, de roteamento de rede e de sincronização de rede. Como a rede em questão é pequena e simples, decidiu-se não detalhar essas configurações aqui, pois elas não serão utilizadas nesse ponto do projeto.
+Em modo comando, pode-se verificar todas as configurações de um módulo pelos valores de seus registradores. Por exemplo, o registrador S101 indica qual o modo de operação desse módulo, 2 para remoto e 4 para coordenador primário. Para navegar entre as configurações dos módulos e altera-las, deve-se utilizar os comandos de fábrica. A figura \ref{fig:radio321} mostra exemplos da utilização de comandos, onde as marcações na figura significam:
+\begin{enumerate}[label=\Alph*)]
+\item Comando AT\&F1 - Definir registradores para padrão de fábrica de coordenador primário.
+\item Comando AT\&W - Escrever mudanças na memória.
+\item Comando AT\&V - Mostrar configurações (imprimi na tela os dados que estão na parte branca da imagem).
+\item Registrador S101 - Modo de operação está definido com 4, modo de coordenador primário.
+\item Registrador S104 - Endereço de rede em seu valor padrão de fábrica, todas as unidades de rede da malha devem ter esse mesmo valor. Recomenda-se mudar para um valor diferente do padrão.
+\item Registrador S133 - Tipo de rede, 2 ou 3 para em malha.
+\item Registrador S140 - Endereço de destino. O padrão é FF:FF:FF:FF:FF:FF que significa que os pacotes serão enviados para todos os dispositivos na rede. Isso pode ser alterado para o endereço MAC de um dispositivo específico.
+\item MAC - Endereço MAC desse dispositivo definido em fábrica.
+\end{enumerate}
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .8\textwidth]{figs/radio321}
+\caption{Visualização do programa HyperTerminal durante a configuração de um {\it modem}~\cite{manualRadio}.}
+\label{fig:radio321}
+\end{figure}
+
+Mais exemplos de configurações podem ser encontradas na documentação, referência~\cite{manualRadio}, assim como configurações avançadas de como evitar colisões na rede, de roteamento de rede e de sincronização de rede. Como a rede em questão é pequena e simples, decidiu-se não detalhar essas configurações aqui, pois elas não serão utilizadas no estado atual do projeto.
 
 
 

@@ -11,12 +11,26 @@ O sistema completo é composto de quatro sub-sistemas principais, três aeronaves,
 
 Cada aeronave possui dois componentes principais que valem ser mencionados. Um deles é o piloto automático, que é responsável pela aquisição, condicionamento e processamento de sinais provenientes dos sensores da aeronave e pelo controle dos atuadores do avião. O outro é o computador embarcado. Ele é responsável pelo processamento de dados, controle dos aviões (controle individual de cada avião ou controle cooperativo entre os três aviões) e pela comunicação com os outros sub-sistemas por meio dos rádios de comunicação.
 
-Esse capítulo descreve e detalha os componentes do sistema e a comunicação entre eles. \textcolor{red}{colocar foto aqui}
+Esse capítulo descreve e detalha os componentes do sistema e como a comunicação entre eles. 
 
 % Aeronaves ---------------------------------------------------------------------------------------------------------
 \section{Aeronaves}
 
-Utilizou-se dois aviões do modelo {\it X-UAV Skua FPV Plane}, onde {\it FPV} é a abreviação de {\it first-person view}. Isso significa que esse avião pode ser controlado ou pilotado remotamente, pelo uso de câmeras. Esse avião possui uma envergadura grande, de $2,1$ metros, e é relativamente leve~\cite{manualAsa}. Essas características resultam em um avião de excelente performance energética e de baixa velocidade. \textcolor{red}{Um dos aviões desse modelo pode se visto na figura X.}
+Utilizou-se dois aviões do modelo {\it X-UAV Skua FPV Plane}, onde {\it FPV} é a abreviação de {\it first-person view}. Isso significa que esse avião pode ser controlado ou pilotado remotamente pelo uso de câmeras. Esse avião possui uma envergadura grande, de $2,1$ metros, e é relativamente leve~\cite{manualAviao}. Essas características resultam em um avião de excelente performance energética e de baixa velocidade. Um dos aviões desse modelo pode se visto na figura \ref{fig:skua}.
 
-A asa voadora utilizada é do modelo {\it Go Discover FPV Plane}, que também é do tipo {\it FPV}. Ela possui envergadura de $1,6$ metros e também é relativamente leve~\cite{manualAviao}. Em relação aos aviões do modelo {\it X-UAV Skua FPV Plane}, a asa voadora é mais ágil, porém possui pior performance energética. \textcolor{red}{O avião desse modelo pode se visto na figura X.}
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .7\textwidth]{figs/skua}
+\caption{Foto do avião {\it X-UAV Skua FPV Plane}~\cite{manualAviao}.}
+\label{fig:skua}
+\end{figure}
 
+A asa voadora utilizada é do modelo {\it Go Discover FPV Plane}, que também é do tipo {\it FPV}. Ela possui envergadura de $1,6$ metros e também é relativamente leve~\cite{manualAsa}. Em relação aos aviões do modelo {\it X-UAV Skua FPV Plane}, a asa voadora é mais ágil, porém possui pior performance energética. O avião desse modelo pode se visto na figura \ref{fig:goDiscover}.
+
+\begin{figure}[!h]
+\centering
+\label{fig:goDiscover}
+\includegraphics[width = .7\textwidth]{figs/goDiscover}
+\caption{Foto do avião {\it Go Discover FPV Plane}~\cite{manualAsa}.}
+\label{fig:goDiscover}
+\end{figure}

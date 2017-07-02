@@ -2,9 +2,16 @@
 \section{Computador embarcado - Gumstix Overo Waterstorm COM}
 \subsection{Introdução}
 
-Escolheu-se utilizar o computador embarcado Overo WaterSTORM acoplado a uma placa de extensão TOBI, que possui módulos auxiliares essenciais. Acoplou-se também ao sistema uma câmera Caspa VL, capaz de capturar imagens coloridas com dimensão de 752 x 480 pixels em uma frequência de 60 imagens por segundo. Esses três componentes, que podem ser vistos na \textcolor{red}{figura}, são produzidos pela empresa Gumstix, fabricante de {\it hardware} especializada em computadores  pequenos do tipo computador-em-módulo (COM - {\it computer-on-module}), muito utilizados para sistemas embarcados.
+Escolheu-se utilizar o computador embarcado Overo WaterSTORM acoplado a uma placa de extensão TOBI, que possui módulos auxiliares essenciais. Acoplou-se também ao sistema uma câmera Caspa VL, capaz de capturar imagens coloridas com dimensão de 752 x 480 pixels em uma frequência de 60 imagens por segundo. Esses três componentes, que podem ser vistos na figura \ref{fig:gumstix}, são produzidos pela empresa Gumstix, fabricante de {\it hardware} especializada em computadores  pequenos do tipo computador-em-módulo (COM - {\it computer-on-module}), muito utilizados para sistemas embarcados.
 
-Apesar do tamanho pequeno,  a combinação da Overo COM com a placa de extensão TOBI possui o mesmo desempenho do que um computador Linux completo de tamanho normal, maior do que outros sistemas desse tipo encontrados no mercado, como, por exemplo, o computador Raspberry Pi. Pode-se ver como uma Overo COM é pequena na \textcolor{red}{figura}, onde o computador encontra-se ao lado de uma bateria AA.
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .8\textwidth]{figs/gumstix}
+\caption{Sistema Gumstix com computador Overo WaterSTORM, placa de expansão Tobi e câmera Caspa VL.}
+\label{fig:gumstix}
+\end{figure}
+
+Apesar do tamanho pequeno,  a combinação da Overo COM com a placa de extensão TOBI possui o mesmo desempenho do que um computador Linux completo de tamanho normal, maior do que outros sistemas desse tipo encontrados no mercado, como, por exemplo, o computador Raspberry Pi. 
 
 Algumas das especificações mais importantes do Overo Waterstorm COM são~\cite{docGumstix}:
 \begin{itemize}
@@ -32,17 +39,28 @@ A técnica convencional para a criação de imagens desse tipo é a técnica de compi
 Nesse caso, a imagem do SO criada para arquitetura ARM é gerada em máquinas de arquitetura AMD64.
 Além do compilador, o ambiente de compilação cruzada é formado por diversas ferramentas, que servem para manipular código objeto em diferentes formatos.
 
-Existem duas abordagens para a execução de aplicações de tempo real em Linux, uso de ferramentas que implementam um kernel duplo, como Xenomai ou RTAI ({\it Real Time Application Interface}), e uso de RTL ({\it Real-time Linux}). O uso de RTL vem crescendo muito nos últimos anos, assim como sua comunidade de desenvolvedores. Porém, ainda é uma ferramenta em evolução e ainda não apresenta desempenho tão bom como as ferramentas de kernel duplo~\cite{articleRT}. Assim, escolheu-se utilizar a ferramenta Xenomai para esse projeto.
+Existem duas abordagens para a execução de aplicações de tempo real em Linux, uso de ferramentas que implementam um kernel duplo, como Xenomai ou RTAI ({\it Real Time Application Interface}), e uso de RTL ({\it Real-time Linux}). O uso de RTL vem crescendo muito nos últimos anos, assim como sua comunidade de desenvolvedores. Porém, ainda é uma ferramenta em evolução e ainda não apresenta desempenho tão bom como as ferramentas de kernel duplo~\cite{articleRT}. Assim, escolheu-se utilizar a ferramenta Xenomai para esse projeto.~\cite{book:RTL}
 
 \subsubsection{Xenomai}
 
-Atualmente,  existe uma versão mais recentes do Xenomai que utiliza as capacidades em tempo real do kernel nativo do Linux, assim como RTL, dispensando assim o uso de um kernel duplo. Essa versão forma o núcleo {\it mercury} dentro do kernel do Linux. Já a versão que implementa o kernel duplo forma o núcleo {\it cobalt}. Nesse projeto, escolheu-se utilizar  a versão {\it cobalt}~\cite{docXenomai}.
+Atualmente,  existe uma versão mais recentes do Xenomai que utiliza as capacidades em tempo real do kernel nativo do Linux, assim como RTL, dispensando assim o uso de um kernel duplo. Essa versão forma o núcleo {\it mercury} dentro do kernel do Linux. Já a versão que implementa o kernel duplo forma o núcleo {\it cobalt}. Nesse projeto, escolheu-se utilizar  a versão {\it cobalt}.~\cite{docXenomai}
 
-O núcleo {\it cobalt} complementa o Linux com um co-kernel em tempo real, funcionando lado a lado com ele. Ele está integrado no kernel do Linux, lidando com todas as atividades críticas para o tempo, como lidar com interrupções e agendamento de threads em tempo real. O núcleo {\it cobalt} tem maior prioridade sobre as atividades nativas do kernel. Nesta configuração de kernel duplo, todas as aplicações de tempo real possuem interface com o núcleo Cobalt. Uma representação dessa configuração pode ser visualizada na \textcolor{red}{figura}~\cite{docXenomai}.
+O núcleo {\it cobalt} complementa o Linux com um co-kernel em tempo real, funcionando lado a lado com ele. Ele está integrado no kernel do Linux, lidando com todas as atividades críticas para o tempo, como lidar com interrupções e agendamento de {\it threads} em tempo real. O núcleo {\it cobalt} tem maior prioridade sobre as atividades nativas do kernel. Nesta configuração de kernel duplo, todas as aplicações de tempo real possuem interface com o núcleo {\it cobalt}. Uma representação dessa configuração pode ser visualizada na figura \ref{fig:xenomaiCobalt}.~\cite{docXenomai}
 
-A documentação completa do Xenomai pode ser encontrada em \url{https://xenomai.org/}.
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .8\textwidth]{figs/xenomaiCobalt}
+\caption{Representação de funcionamento do núcleo {\it cobalt} do Xenomai~\cite{docXenomai}.}
+\label{fig:xenomaiCobalt}
+\end{figure}
 
-\subsubsection{Ferramenta RT-Mag}
-\subsubsection{Geração de uma imagem de SO por compilação cruzada}
-\subsection{Conexão serial}
+A documentação completa do Xenomai pode ser encontrada em~\cite{docXenomai}.
+
+\subsubsection{Projeto RT-MaG}
+
+O projeto RT-MaG ({\it Real-Time - Marseille Grenoble Project}) é um projeto desenvolvido pelo Gipsa-Lab (Grenoble, França) e o Institute of Mouvement Sciences (ISM, Marseille, França). O objetivo deste projeto é fornecer ferramentas eficientes para a prototipagem rápida de robôs para pesquisa e aplicações acadêmicas. O RT-MaG fornece uma caixa de ferramentas para Matlab e Simulink para programar sistemas Linux-COM. Com a ferramenta, pode-se facilmente gerar um aplicativo autônomo em tempo real a partir de um modelo Simulink para um robô usando um sistema Linux.
+
+Essas ferramentas consistem em um conjunto de blocos simulink que fornecem acesso direto às entradas e saíadas de uma COM. Atualmente, a Gumstix Overo COM é totalmente suportada. Os modelos Simulink são convertidos automaticamente em aplicações em tempo real. O uso dessas ferramentas é totalmente gratuito.~\cite{rt-mag}
+
+Pode-se encontrar imagens de SO já compiladas para a Gumstix Overo COM em~\cite{rt-mag}, onde encontram-se imagens geradas de distribuições Linux provindas do Projeto Yocto.
 

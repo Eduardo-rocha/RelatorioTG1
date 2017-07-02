@@ -5,7 +5,14 @@
 
 Escolheu-se usar o Pixhawk como o piloto automático de cada avião. Pixhawk é um projeto independente de {\it hardware} aberto com o objetivo de proporcionar um piloto automático a baixo custo e de alto desempenho. Dentre as opções de pilotos automáticos disponíveis no mercado, decidiu-se que o Pixhawk tem o melhor custo-benefício para o projeto.
 
-O Pixhawk é uma plataforma completa de {\it hardware} e {\it software}, bem como um computador, e pode executar várias aplicações de alto nível. Ele oferece um ambiente de programação compatível com sistemas Unix / Linux, o que facilita o desenvolvimento de aplicações de {\it software} que rodem nele. O sistema Pixhawk possui capacidade de {\it multithreading}, ou seja, pode executar várias tarefas simultaneamente sem que uma interfira na outra através do compartilhamento de recursos do processo. Além disso, ele possui funções de piloto automático integrado com logs detalhados de missões e comportamento de voo.
+O Pixhawk é uma plataforma completa de {\it hardware} e {\it software}, bem como um computador, e pode executar várias aplicações de alto nível. Ele oferece um ambiente de programação compatível com sistemas Unix / Linux, o que facilita o desenvolvimento de aplicações de {\it software} que rodem nele. O sistema Pixhawk possui capacidade de {\it multithreading}, ou seja, pode executar várias tarefas simultaneamente sem que uma interfira na outra através do compartilhamento de recursos do processo. Além disso, ele possui funções de piloto automático integrado com logs detalhados de missões e comportamento de voo. O piloto automático Pixhawk pode ser visto na figura \ref{fig:pixhawk}.~\cite{docPixhawk}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .7\textwidth]{figs/pixhawk}
+\caption{Piloto automático Pixhawk~\cite{docPixhawk}.}
+\label{fig:pixhawk}
+\end{figure}
 
 Algumas das características mais importantes do Pixhawk são~\cite{docPixhawk}:
 \begin{itemize}
@@ -16,29 +23,30 @@ Algumas das características mais importantes do Pixhawk são~\cite{docPixhawk}:
 \item Cartão microSD que permite gravação de longos logs de voo.
 \end{itemize}
 
-Dimensões do Pixhawk~\cite{docPixhawk}:
-Peso: 38g;
-Largura: 50mm;
-Espessura: 15.5mm;
-Comprimento: 81.5mm.
-
-\textcolor{red}{colocar foto aqui}
-
 A preparação do Pixhawk para voo consiste principalmente em duas etapas, instalação do {\it firmware} no dispositivo e a calibração dos sensores ligados a ele. As próximas seções descrevem em detalhe essas duas etapas.
 Além disso, deve-se configurar o modo de segurança {\it Failsafe}, que define o comportamento da aeronave com a perda de comunicação com a estação base, e deve-se configurar o modo de armação do motor, que garante que o motor nunca se ligará quando o avião não estiver pronto para voo.
-A documentação oficial do Pixhawk pode ser encontrada no link \url{http://ardupilot.org/ardupilot/index.html#}.
+A documentação oficial do Pixhawk pode ser encontradas em ~\cite{docPixhawk}. 
 
-\subsection{Instalação de firmware e desenvolvimento de aplicações}
+\newpage
+\subsection{Instalação de firmware}
 
-A instalação do {\it firmware} no dispositivo pode ocorrer de duas formas, pelo uso de um programa de Estação de Controle Terrestre (ECT) ou diretamente pelo uso de ferramentas de desenvolvedor, sem o uso de um programa auxiliar. Uma ECT é uma aplicação de {\it software} que roda em um computador de uma estação terrestre e que se comunica com um VANT pelo uso de telemetria sem fio. Ela é capaz de mostrar os dados de performance e posição provindos do piloto automático em tempo-real e pode ser usada para controlar o VANT em voo, mandando comandos para o piloto automático~\cite{docPixhawk}. 
+A instalação do {\it firmware} no dispositivo pode ocorrer de duas formas, pelo uso de um programa de Estação de Controle Terrestre (ECT) ou diretamente pelo uso de ferramentas de desenvolvedor sem o uso de um programa auxiliar. Uma ECT é uma aplicação de {\it software} que roda em um computador de uma estação terrestre e que se comunica com um VANT pelo uso de telemetria sem fio. Ela é capaz de mostrar os dados de performance e posição provindos do piloto automático em tempo-real e pode ser usada para controlar o VANT em voo por meio da comunicação com o piloto automático~\cite{docPixhawk}. 
 
-As principais ECT's disponíveis são Mission Planner, APM Planner 2, MAVProxy, QGroundControl e UgCS. Neste projeto, decidiu-se utilizar a ECT QGroundControl pelo fato de ser a única ECT disponível em todos os sistemas operacionais, Windows, Mac OS X, Linux, Android e iOS. Além disso, QGroundControl é um programa mais estável em relação aos outros e possui uma interface simples e eficiente. \textcolor{red}{colocar imagem do QGroundControl}
+As principais ECT's disponíveis são Mission Planner, APM Planner 2, MAVProxy, QGroundControl e UgCS. Neste projeto, decidiu-se utilizar a ECT QGroundControl pelo fato de ser a única ECT disponível em todos os sistemas operacionais, Windows, Mac OS X, Linux, Android e iOS. Além disso, QGroundControl é um programa mais estável em relação aos outros e possui uma interface simples e eficiente. O programa QGroungControl pode ser visto na figura \ref{fig:qgroundcontrol}.
 
-O uso de uso de uma ECT facilita muito a instalação do {\it firmware}. Ela cuida de todo o processo de conexão com o dispositivo, que ocorre pelo protocolo Mavlink e será explicado posteriormente nesse capítulo. As ECT's já fornecem versões atuais e estáveis de {\it firmware} para todos os tipos de veículos não tripulados que podem usar o Pixhawk. Porém, elas não permitem a instalação de outras versões de {\it firmware} que não sejam as disponibilizadas por elas. Assim, o desenvolvimento de aplicações e a alteração dos {\it firmwares} padrões disponibilizados exigem o uso de ferramentas de desenvolvedor para a instalação do {\it firmware} no Pixhawk~\cite{docDesPixhawk}.
+\begin{figure}[!h]
+\centering
+\includegraphics[width = \textwidth]{figs/qgroundcontrol}
+\caption{Programa de Estação de Controle Terrestre QGroundControl.}
+\label{fig:qgroundcontrol}
+\end{figure}
+
+O uso de uma ECT facilita muito a instalação do {\it firmware}. Ela cuida de todo o processo de conexão com o dispositivo, que ocorre pelo protocolo MAVLink e será explicado posteriormente nesse capítulo. As ECT's já fornecem versões atuais e estáveis de {\it firmware} para todos os tipos de veículos não tripulados que podem usar o Pixhawk. Porém, elas não permitem a instalação de outras versões de {\it firmware} que não sejam as disponibilizadas por elas. Assim, o desenvolvimento de aplicações e a alteração dos {\it firmwares} padrões disponibilizados exigem o uso de ferramentas de desenvolvedor para a instalação do {\it firmware} no Pixhawk~\cite{docDesPixhawk}.
 
 Para a instalação do {\it firmware} através do QGroundControl, basta abrir a aba correspondente a tal ação, selecionar o tipo de veículo utilizado e seguir os passos fornecidos pelo próprio programa. Assim, será instalado a versão mais recente de {\it firmware} disponível para esse tipo de veículo~\cite{docPixhawk}.
 
-\subsubsection{Desenvolvimento de aplicações}
+O desenvolvimento de aplicações ou alteração do {\it firmware} padrão pode ser feito em qualquer sistema operacional, mas recomenda-se o uso de Linux ou Mac OS X. A documentação completa sobre desenvolvimento de aplicações pode ser encontrado em ~\cite{docDesPixhawk}.
+
 
 
 \subsection{Calibração de sensores}
@@ -58,13 +66,20 @@ Além deles, acrescentou-se ao sistema:
 \item Lidar-Lite LL-905.
 \end{itemize}
 
-A calibração dos sensores ocorre pelo uso de uma ECT. O programa QGroundControl já possui rotinas de calibração para todos esse sensores. Assim, o processo de calibração consiste de conectar o Pixhawk ao QGroundControl, abrir a aba correspondente a calibração de sensores e seguir os passos fornecidos pelo próprio programa. \textcolor{red}{colocar imagem do QGroundControl}
+A calibração dos sensores ocorre pelo uso de uma ECT. O programa QGroundControl já possui rotinas de calibração para todos esse sensores. Assim, o processo de calibração consiste de conectar o Pixhawk ao QGroundControl, abrir a aba correspondente a calibração de sensores e seguir os passos fornecidos pelo próprio programa. Um exemplo de calibração de sensores pelo programa QGroundControl pode ser visto na figura \ref{fig:qgroundcontrolCal}
 
-Pode-se observar a presença redundante de sensores no sistema. Isso assegura uma maior confiabilidade nos dados obtidos. Como aeronaves podem sofrer vibrações muito fortes durante o voo, a redundância de sensores é essencial para esse projeto~\cite{docPixhawk}.
+\begin{figure}[!h]
+\centering
+\includegraphics[width = \textwidth]{figs/qgroundcontrolCal}
+\caption{Exemplo de calibração de sensores pelo programa QGroundControl.}
+\label{fig:qgroundcontrolCal}
+\end{figure}
+
+Pode-se observar a presença redundante de sensores no sistema. Isso assegura uma maior confiabilidade nos dados obtidos. Como aeronaves podem sofrer vibrações muito fortes durante o voo, a redundância de sensores é essencial para esse tipo de projeto. A redundância garante também que, quando um dos sensores para de funcionar, existe outro sensor no sistema capaz de substituir ele. Isso previne a queda de aeronaves por falhas de sensores. Em aviões comerciais da companhia Embraer, por exemplo, há uma redundância de pelo menos seis sensores de cada tipo.~\cite{docPixhawk}
 
 \subsection{Diagramas de conexões}
 
-O sensor lidar pode ser conectado ao Pixhawk de duas formas, pelo protocolo I2C na porta I2C e por {\it pulse-width-modulation} (PWM) na trilha PWM. De acordo com a documentação do Pixhawk, o lidar utilizado apresenta problemas de interferência com outros dispositivos quando conectado na porta I2C. Assim, escolheu-se a conexão por PWM. Um diagrama de conexão pode ser vista na tabela \ref{tab:lidarPWM} e o \textcolor{red}{esquema de montagem pode ser visto na figura}, onde o valor do resistor pode variar entre 200$\Omega$ e 1$k\Omega$~\cite{docPixhawk}. Mais detalhes sobre a conexão podem ser encontrados em \url{http://ardupilot.org/copter/docs/common-rangefinder-lidarlite.html?highlight=lidar#}.
+O sensor lidar pode ser conectado ao Pixhawk de duas formas, pelo protocolo I2C na porta I2C e por {\it pulse-width-modulation} (PWM) na trilha PWM. De acordo com a documentação do Pixhawk, o lidar utilizado apresenta problemas de interferência com outros dispositivos quando conectado na porta I2C. Assim, escolheu-se a conexão por PWM. Um diagrama de conexão pode ser vista na tabela \ref{tab:lidarPWM} e o esquema de montagem pode ser visto na figura \ref{fig:montagemLidar}, onde o valor do resistor pode variar entre 200$\Omega$ e 1$k\Omega$~\cite{docPixhawk}. Mais detalhes sobre a conexão podem ser encontrados em~\cite{docLidar}.
 
 \begin{table}[h!]
 \centering
@@ -81,11 +96,33 @@ J6               & Ch6 Out - Ground
 \label{tab:lidarPWM}
 \end{table}
 
-O Pixhawk pode ser energizado de duas formas, pela porta "power", que é o método mais comum,  e pela trilha de portas de servos pelo uso de um BEC de 5V. Com a conexão do sensor lidar nas postas PWM, a energização da trilha de portas de servos com 5V torna-se necessária. Como não é recomendado energizar o Pixhawk somente por essa trilha, decidiu-se energizar o Pixhawk das duas formas, redundantemente. Assim, se a voltagem fornecida na porta "power"  cair, o Pixhawk continua energizado. Formas mais avançadas de conexão podem ser encontradas em \url{http://ardupilot.org/copter/docs/common-powering-the-Pixhawk.html#common-powering-the-Pixhawk}, como, por exemplo, energização triplo-redundante~\cite{docPixhawk}.
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .8\textwidth]{figs/montagemLidar}
+\caption{Esquema de montagem do sensor lidar via conexão PWM~\cite{docLidar}.}
+\label{fig:montagemLidar}
+\end{figure}
 
-Um diagrama geral pode ser visto na 
-\textcolor{red}{Um diagrama geral pode ser visto na  figura}
+O Pixhawk pode ser energizado de duas formas, pela porta "power", que é o método mais comum,  e pela trilha de portas de servos pelo uso de um BEC de 5V. Com a conexão do sensor lidar nas postas PWM, a energização da trilha de portas de servos com 5V torna-se necessária. Como não é recomendado energizar o Pixhawk somente por essa trilha, decidiu-se energizar o Pixhawk das duas formas, redundantemente. Assim, se a voltagem fornecida na porta "power"  cair, o Pixhawk continua energizado. Formas mais avançadas de conexão podem ser encontradas em \cite{docPower}, como, por exemplo, energização triplo-redundante.~\cite{docPower}
+
+Um diagrama geral de dispositivos conectados ao Pixhawk pode ser visto na figura \ref{fig:diagPixhawk}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .8\textwidth]{figs/diagPixhawk}
+\caption{Diagrama de conexão do Pixhawk.}
+\label{fig:diagPixhawk}
+\end{figure}
 
 \subsection{Pouso automático (sensor Lidar)}
 
-\url{http://ardupilot.org/copter/docs/common-rangefinder-lidarlite.html?highlight=lidar#}
+Após a conexão do lidar ao sistema via PWM, alguns parâmetros do piloto automático devem ser alterados para que ele reconheça o sensor. Esses parâmetros podem ser facilmente alterados por um programa de ECT. São eles:~\cite{docLidar}
+\begin{itemize}
+\item RNG\_FND = 5, indica que a conexão ocorre via PWM.
+\item RNDFND\_MAX\_CM = 4000, representa a distância máxima em que o sensor é confiável.
+\item RNDFND\_STOP\_PIN = 55, pino conectado ao sinal de ativação do lidar. Permite que o dispositivo reinicie o sensor caso ele para de fornecer dados.
+\item Os parâmetros RNDFND\_SCALING e RNDFND\_OFFSET devem ser ajustados de forma a se calibrar o sensor (costumam ser aproximadamente 0 e 1, respectivamente).
+\end{itemize}
+
+O sensor pode ser testado pela ECT, onde as leituras podem ser observadas no campo {\it sonarrange}. Após a configuração do sensor, o piloto automático é capaz de pousar o avião de forma muito mais rápida e precisa. O pouso ocorre pelo envio do comando {\it Land} ao controlador, mas para que ele ocorra corretamente deve-se definir a posição da pista de pouso e deve-se ajustar os parâmetros de pouso, como por exemplo a velocidade com que o avião deve pousar. Durante esse trabalho não foi realizado nenhum pouso automático. A documentação detalhada sobre pousos automáticos pode ser encontrada em~\cite{docPouso}. 
+

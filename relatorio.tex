@@ -1,6 +1,6 @@
 %% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[a4paper,oneside,brazil,11pt,a4paper,openright,titlepage,usenames,dvipsnames]{book}
+\documentclass[a4paper,twoside,brazil,11pt,a4paper,openright,titlepage,usenames,dvipsnames]{book}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \setcounter{secnumdepth}{3}
@@ -50,6 +50,25 @@
 \usepackage{makeidx}
 \usepackage{indentfirst}
 \usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{fancyvrb}
+% redefine \VerbatimInput
+\RecustomVerbatimCommand{\VerbatimInput}{VerbatimInput}%
+{fontsize=\footnotesize,
+ %
+ frame=lines,  % top and bottom rule only
+ framesep=2em, % separation between frame and text
+ rulecolor=\color{Gray},
+ %
+ label=\fbox{\color{Black}resultado\_MAVLink.txt},
+ labelposition=topline,
+ %
+ commandchars=\|\(\), % escape character and argument delimiters for
+                      % commands within the verbatim
+ commentchar=*        % comment character
+}
+
 
 
 % Pacotes para adiçao de figuras do inkscape
@@ -81,11 +100,11 @@
 
 \tipodemonografia{TRABALHO DE GRADUAÇÃO 1}
 
-\titulolinhai{TÍTULO DO TRABALHO DIVIDIDO EM}
+\titulolinhai{DESENVOLVIMENTO DE UM SISTEMA COM}
 
-\titulolinhaii{MAIS DE UMA LINHA PARA TÍTULOS}
+\titulolinhaii{VEÍCULOS AÉREOS NÃO-TRIPULADOS AUTÔNOMOS}
 
-\titulolinhaiii{REALMENTE LONGOS COMO ESTE}
+\titulolinhaiii{}
 
 \titulolinhaiv{}
 
@@ -184,7 +203,7 @@ inclui-la deverá(ao) utilizar este espaço, seguindo esta formatação.}
 
 
 %Anexos -------------------------------------------------------------------------------------------------
-\anexos 
+%\anexos 
 \makeatletter 
 % não retirar estes comandos 
 \renewcommand{\@makechapterhead}[1]{%
@@ -197,14 +216,14 @@ inclui-la deverá(ao) utilizar este espaço, seguindo esta formatação.}
 \makeatother
 
 %Anexo I: Descriçao do CD
-\include{anexo_CD}
+%\include{anexo_CD}
 
-\refstepcounter{noAnexo}
+%\refstepcounter{noAnexo}
 
 %Anexo II: Programas Utilizados
-\include{anexo_Codigos}
+%\include{anexo_Codigos}
 
-\refstepcounter{noAnexo}
+%\refstepcounter{noAnexo}
 
 \begin{comment}
 Acrescente mais anexos conforme julgar necessário.

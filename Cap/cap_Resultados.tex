@@ -2,9 +2,84 @@
 \chapter{Resultados\label{chap:Resultados}}
 
 % Resumo opcional. Comentar se não usar.
-\resumodocapitulo{Resumo opcional.}
+%\resumodocapitulo{Resumo opcional.}
 
 
 \section{Introdução}
 
-Introduzir.
+Com excessão do computador embarcado, todos os outros componentes do sistema foram testados e funcionaram corretamente. Houve problemas com a criação da imagem de SO para a Gumstix Overo COM. Assim, não foi possível realizar um voo do sistema completo. 
+
+As seções abaixo descrevem os testes realizados as componentes do sistema e os resultados obtidos.
+
+\section{Teste de voo das aeronaves}
+
+Realizou-se testes de voo de todas as aeronaves. A comunicação com a aeronave ocorreu diretamente pelo rádio controle e pelo receptor de rádio, que foi diretamente conectado as servos motores das superfícies de controle da aeronave e ao ESC do motor.
+
+Todos os voos foram realizados com sucesso. As aeronaves se demonstraram estáveis e e fáceis de se pilotar. 
+
+\section{Teste de conexão MAVLink}
+
+Testou-se a conexão de um computador com sistema operacional Linux, equivalente a Gumstix Overo COM, com um Pixhawk por meio do protocolo MAVLink. Esse teste foi feito por meio de uma adaptação ao exemplo encontrado no link: \url{https://github.com/mavlink/c_uart_interface_example}. O código consiste dos seguintes passos:
+\begin{enumerate}
+\item Abrir conexão serial com a porta USB conectada ao Pixhawk;
+\item Checar por mensagem do tipo HEARTBEAT do Pixhawk;
+\item Pegar parâmetros SYSTEM\_ID e COMPONENT\_ID do Pixhawk;
+\item Pegar Posição do Pixhawk oito vezes a uma taxa de uma vez por segundo;
+\item Encerrar conexão.
+\end{enumerate}
+
+O resulta do teste encontra-se no arquivo resultado\_MAVLink.txt, que pode ser visto abaixo. 
+
+\VerbatimInput{arquivos_txt/resultado_MAVLink.txt}
+
+\newpage
+\section{Teste de funcionamento dos rádios de comunicação P900}
+
+O teste funcionamento dos rádios ocorreu pela comunicação entre computadores com sistema operacional Windows por meio do  programa HyperTerminal. O mesmo deve funcionar corretamente em computadores com sistema operacional Linux pela abertura de conexões seriais entre os computadores e os {\it modems}. Configurou-se um dos rádios como mestre primário e os outros três como remotos (escravos). 
+
+Durante o teste, um dos rádio transmitiu mensagens para os outros três, que receberam as mensagens corretamente. Transmitiu-se mensagens de 8 bits, correspondentes a caracteres. Os caracteres recebidos pelos rádios encontram-se nos arquivos recebido\_radio1.txt, recebido\_radio2.txt e recebido\_radio3.txt, que podem ser vistos abaixo.
+\VerbatimInput[label=\fbox{\color{Black}recebido\_radio1.txt}]{arquivos_txt/recebido_radio1.txt}
+\VerbatimInput[label=\fbox{\color{Black}recebido\_radio2.txt}]{arquivos_txt/recebido_radio2.txt}
+\VerbatimInput[label=\fbox{\color{Black}recebido\_radio3.txt}]{arquivos_txt/recebido_radio3.txt}
+
+
+\section{Teste de funcionamento do piloto automático Pixhawk}
+
+Inicialmente, conectou-se o Pixhawk ao programa de ECT QGroundControl. Instalou-se o {\it firmware} apropriado para a aeronave em questão, calibrou-se todos os sensores e configurou-se e calibrou-se o lidar. Realizou-se um voo com um avião do modelo {\it X-UAV Skua FPV Plane} e salvou-se toda a telemetria de voo. Por erro de fixação do Pixhawk à aeronave, o piloto automático soltou-se durante o voo. Por isso, os dados de telemetria salvos ficaram ruins e não apresentam utilidade. Pode-se ver na figura \ref{fig:pistaQGC} a ECT conectada ao avião por meio dos rádios de telemetria antes do voo realizado. Fotos do voo podem ser vistas nas figuras \ref{fig:voo1} e \ref{fig:voo2}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .85\textwidth]{figs/voo1}
+\caption{Foto do avião {\it X-UAV Skua FPV Plane} na pista de decolagem.}
+\label{fig:voo1}
+\end{figure}
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .85\textwidth]{figs/voo2}
+\caption{Foto do avião {\it X-UAV Skua FPV Plane} durante teste de voo.}
+\label{fig:voo2}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .9\textwidth]{figs/pistaQGC}
+\caption{ECT QGroundControl conectada ao avião por meio dos rádios de telemetria na pista de voo.}
+\label{fig:pistaQGC}
+\end{figure}
+
+
+\section{Gumstix Overo COM}
+
+Conseguiu-se gerar imagens de SO para a Gumstix Overo COM corretamente por meio das distribuições fornecidas pelo projeto Yocto. Gerou-se, com sucesso, imagens com a ferramenta RT-MaG e com suporte à câmera Caspa VL. Houve problemas com a instalação da ferramenta Xenomai. Seguiu-se todos os passos fornecidos pela documentação da ferramenta, mas a geração da imagem apresentou diversos problemas, muitos relacionados ao número das versões das ferramentas utilizadas durante o processo de compilação cruzada. Muitos desses erros foram resolvidos e consertados, mas não todos. Por isso, ainda não há uma imagem de SO funcional com a ferramenta Xenomai.
+
+
+
+
+
+
+
+
+
+
+
+

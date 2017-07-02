@@ -2,13 +2,13 @@
 \section{Comunicação com o piloto automático - MAVLink}
 \subsection{Introdução}
 
-MAVLink ({\it Micro Air Vehicle Communication Protocol}) é um protocolo de comunicação leve feito para o uso em veículos aéreos pequenos. Ele capaz de enviar estruturas de dados em canais seriais com alta eficiência e enviar esses pacotes para a estação de controle de terra ou computador embarcado. Ele é amplamente testado na plataforma Pixhawk, o piloto automático escolhido para esse projeto. Apesar de seu nome, o uso deste protocolo tem se expandido muito nos últimos anos e ele é usado também para a comunicação com robôs terrestres.~\cite{docMavlink}
+MAVLink ({\it Micro Air Vehicle Communication Protocol}) é um protocolo de comunicação leve feito para o uso em veículos aéreos pequenos. Ele capaz de enviar estruturas de dados em canais seriais com alta eficiência e enviar esses pacotes para a estação de controle de terra ou computador embarcado. Ele é amplamente usado na plataforma Pixhawk, o piloto automático escolhido para esse projeto. Apesar de seu nome, o uso deste protocolo tem se expandido muito nos últimos anos e ele é usado também para a comunicação com robôs terrestres.~\cite{docMavlink}
 
 \subsection{Mensagens MAVLink}
 
 Uma mensagem MAVLink é basicamente um conjunto de bytes codificados pela ECT e enviado para o piloto automático, ou vice-versa, via conexão USB serial ou telemetria, mas não pelos dois ao mesmo tempo (quando os dois estão conectados, a conexão ocorrerá via porta USB e a telemetria será ignorada).~\cite{docMavlink}
 
-Cada pacote MAVLink possui 17 bytes de tamanho, onde 6 correspondem ao cabeçalho, 9 correspondem aos dados a serem transmitidos, chamados de {\it payload}, e 2 correspondem a bytes de {\it checksum}. A tabela \ref{tab:headerMavlink} detalha as informações contidas no cabeçalho de uma mensagem MAVLink.~\cite{tutMavlink}
+Cada pacote MAVLink possui 17 bytes de tamanho, onde 6 correspondem ao cabeçalho, 9 correspondem aos dados a serem transmitidos, chamados de {\it payload}, e 2 correspondem a bytes de {\it checksum}. A tabela \ref{tab:headerMavlink} detalha as informações contidas no cabeçalho de uma mensagem MAVLink. Os bytes de {\it checksum} são utilizados para a detecção de erros durante a transmissão das mensagens.~\cite{tutMavlink}
 
 \begin{table}[h!]
 \centering
@@ -37,4 +37,8 @@ O que realmente interessa nessas mensagens é o {\it payload} junto com a identif
 \end{enumerate}
 
 Um exemplo de programa que implementa uma comunicação com MAVLink pode ser encontrado no repositório em \url{https://github.com/mavlink/c_uart_interface_example}. Esse programa cria uma comunicação serial com o Pixhawk e troca mensagens com ele. A implementação da comunicação entre o Pixhawk e o computador embarcado nesse projeto é baseada nesse exemplo. Dentro do repositório tem um arquivo de texto que explica como compilar e rodar o programa.
+
+\subsection{Conexão física com o piloto automático}
+
+A conexão pode ser realizada de duas formas, pela entrada mini-USB do Pixhawk ou pela porta de comunicação serial por meio de um cabo FTDI. Recomenda-se a comunicação por meio da porta serial. O uso da entrada mini-USB do pixhawk desativa a porta de telemetria do dispositivo, a não ser que isso seja alterado em seu {\it firmware}.
 
