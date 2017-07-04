@@ -16,10 +16,10 @@ Cada pacote MAVLink possui 17 bytes de tamanho, onde 6 correspondem ao cabeçalho
 byte 0 & Início da mensagem, sempre  0xFE.                       \\ \hline
 byte 1 & Tamanho da mensagem, igual a 9. \\ \hline
 byte 2 & Número da sequencia, indica a sequência das mensagens enviadas. \\ \hline
-byte 3 & Identificação do sistema ({\it Sistem ID}), indica qual sistema está enviando a mensagem. \\ \hline
-byte 4 & Identificação do componente ({\it component ID}), indica qual componente do sistema                                    \\ 
+byte 3 & Identificação do sistema ({\it Sistem\_ID}), indica qual sistema está enviando a mensagem. \\ \hline
+byte 4 & Identificação do componente ({\it Component\_ID}), indica qual componente do sistema                                    \\ 
  & está enviando a mensagem.                                    \\ \hline
-byte 5 & Identificação da mensagem ({\it Message ID}), indica qual o conteúdo da mensagem.                             
+byte 5 & Identificação da mensagem ({\it Message\_ID}), indica qual o conteúdo da mensagem.                             
 \end{tabular}
 \caption{Descrição do cabeçalho de uma mensagem MAVLink~\cite{tutMavlink}.}
 \label{tab:headerMavlink}

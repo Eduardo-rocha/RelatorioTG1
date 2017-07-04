@@ -5,7 +5,7 @@
 
 Escolheu-se usar o Pixhawk como o piloto automático de cada avião. Pixhawk é um projeto independente de {\it hardware} aberto com o objetivo de proporcionar um piloto automático a baixo custo e de alto desempenho. Dentre as opções de pilotos automáticos disponíveis no mercado, decidiu-se que o Pixhawk tem o melhor custo-benefício para o projeto.
 
-O Pixhawk é uma plataforma completa de {\it hardware} e {\it software}, bem como um computador, e pode executar várias aplicações de alto nível. Ele oferece um ambiente de programação compatível com sistemas Unix / Linux, o que facilita o desenvolvimento de aplicações de {\it software} que rodem nele. O sistema Pixhawk possui capacidade de {\it multithreading}, ou seja, pode executar várias tarefas simultaneamente sem que uma interfira na outra através do compartilhamento de recursos do processo. Além disso, ele possui funções de piloto automático integrado com logs detalhados de missões e comportamento de voo. O piloto automático Pixhawk pode ser visto na figura \ref{fig:pixhawk}.~\cite{docPixhawk}
+O Pixhawk é uma plataforma completa de {\it hardware} e {\it software}, bem como um computador, e pode executar várias aplicações de alto nível. Ele oferece um ambiente de programação compatível com sistemas Unix e Linux, o que facilita o desenvolvimento de aplicações de {\it software} que rodem nele. O sistema Pixhawk possui capacidade de {\it multithreading}, ou seja, pode executar várias tarefas simultaneamente sem que uma interfira na outra através do compartilhamento de recursos do processo. Além disso, ele possui funções de piloto automático integrado com logs detalhados de missões e comportamento de voo. O piloto automático Pixhawk pode ser visto na figura \ref{fig:pixhawk}.~\cite{docPixhawk}
 
 \begin{figure}[!h]
 \centering
@@ -66,7 +66,7 @@ Além deles, acrescentou-se ao sistema:
 \item Lidar-Lite LL-905.
 \end{itemize}
 
-A calibração dos sensores ocorre pelo uso de uma ECT. O programa QGroundControl já possui rotinas de calibração para todos esse sensores. Assim, o processo de calibração consiste de conectar o Pixhawk ao QGroundControl, abrir a aba correspondente a calibração de sensores e seguir os passos fornecidos pelo próprio programa. Um exemplo de calibração de sensores pelo programa QGroundControl pode ser visto na figura \ref{fig:qgroundcontrolCal}
+A calibração dos sensores ocorre pelo uso de uma ECT. O programa QGroundControl já possui rotinas de calibração para todos esses sensores. Assim, o processo de calibração consiste de conectar o Pixhawk ao QGroundControl, abrir a aba correspondente a calibração de sensores e seguir os passos fornecidos pelo próprio programa. Um exemplo de calibração de sensores pelo programa QGroundControl pode ser visto na figura \ref{fig:qgroundcontrolCal}.
 
 \begin{figure}[!h]
 \centering
@@ -105,7 +105,7 @@ J6               & Ch6 Out - Ground
 
 O Pixhawk pode ser energizado de duas formas, pela porta "power", que é o método mais comum,  e pela trilha de portas de servos pelo uso de um BEC de 5V. Com a conexão do sensor lidar nas postas PWM, a energização da trilha de portas de servos com 5V torna-se necessária. Como não é recomendado energizar o Pixhawk somente por essa trilha, decidiu-se energizar o Pixhawk das duas formas, redundantemente. Assim, se a voltagem fornecida na porta "power"  cair, o Pixhawk continua energizado. Formas mais avançadas de conexão podem ser encontradas em \cite{docPower}, como, por exemplo, energização triplo-redundante.~\cite{docPower}
 
-Um diagrama geral de dispositivos conectados ao Pixhawk pode ser visto na figura \ref{fig:diagPixhawk}.
+Um diagrama geral de dispositivos conectados ao Pixhawk pode ser visto na figura \ref{fig:diagPixhawk}. Os servo motores, o {\it electronic speed controller} (ESC), o lidar e o receptor de rádio devem ser conectados a trilha PWM do Pixhawk. Os demais componentes devem ser conectados as portas que contém seu nome.
 
 \begin{figure}[!h]
 \centering

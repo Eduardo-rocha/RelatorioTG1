@@ -41,7 +41,7 @@ Além do compilador, o ambiente de compilação cruzada é formado por diversas ferr
 
 Existem duas abordagens para a execução de aplicações de tempo real em Linux, uso de ferramentas que implementam um kernel duplo, como Xenomai ou RTAI ({\it Real Time Application Interface}), e uso de RTL ({\it Real-time Linux}). O uso de RTL vem crescendo muito nos últimos anos, assim como sua comunidade de desenvolvedores. Porém, ainda é uma ferramenta em evolução e ainda não apresenta desempenho tão bom como as ferramentas de kernel duplo~\cite{articleRT}. Assim, escolheu-se utilizar a ferramenta Xenomai para esse projeto.~\cite{book:RTL}
 
-\subsubsection{Xenomai}
+\subsection{Xenomai}
 
 Atualmente,  existe uma versão mais recentes do Xenomai que utiliza as capacidades em tempo real do kernel nativo do Linux, assim como RTL, dispensando assim o uso de um kernel duplo. Essa versão forma o núcleo {\it mercury} dentro do kernel do Linux. Já a versão que implementa o kernel duplo forma o núcleo {\it cobalt}. Nesse projeto, escolheu-se utilizar  a versão {\it cobalt}.~\cite{docXenomai}
 
@@ -56,7 +56,7 @@ O núcleo {\it cobalt} complementa o Linux com um co-kernel em tempo real, funcio
 
 A documentação completa do Xenomai pode ser encontrada em~\cite{docXenomai}.
 
-\subsubsection{Projeto RT-MaG}
+\subsection{Projeto RT-MaG}
 
 O projeto RT-MaG ({\it Real-Time - Marseille Grenoble Project}) é um projeto desenvolvido pelo Gipsa-Lab (Grenoble, França) e o Institute of Mouvement Sciences (ISM, Marseille, França). O objetivo deste projeto é fornecer ferramentas eficientes para a prototipagem rápida de robôs para pesquisa e aplicações acadêmicas. O RT-MaG fornece uma caixa de ferramentas para Matlab e Simulink para programar sistemas Linux-COM. Com a ferramenta, pode-se facilmente gerar um aplicativo autônomo em tempo real a partir de um modelo Simulink para um robô usando um sistema Linux.
 

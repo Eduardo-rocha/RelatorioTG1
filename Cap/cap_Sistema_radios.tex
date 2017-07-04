@@ -11,7 +11,7 @@ Módulos dessa linha operam dentro da banda de frequências 902-928 MHz usando tec
 
 Por serem pequenos e com excelente performance, esses rádios são ideais para esse projeto, pois eles devem estar embarcados em todas as aeronaves. 
 
-O módulo utilizado pode ser visto na figura \ref{fig:radios}, onde a esquerda encontra-se a versão utilizada, que é encapsulada.
+O módulo utilizado pode ser visto na figura \ref{fig:radios}, onde à esquerda encontra-se a versão utilizada, que é encapsulada.
 \begin{figure}[!h]
 \centering
 \includegraphics[width = .4\textwidth]{figs/radio}
@@ -21,7 +21,7 @@ O módulo utilizado pode ser visto na figura \ref{fig:radios}, onde a esquerda en
 
 \subsection{Especificações do P900}
 
-É importante mencionar que esse modelo é compatível com nível lógico de 3.3V, que corresponde com o nível lógico da porta USB do computador Gumstix Overo COM. Assim, esses {\it modem} pode ser conectado diretamente no computador, se a necessidade de conversores de nível lógico.
+É importante mencionar que esse modelo é compatível com nível lógico de 3.3V, que corresponde com o nível lógico da porta USB do computador Gumstix Overo COM. Assim, esses {\it modem} pode ser conectado diretamente no computador, sem a necessidade de conversores de nível lógico.
 
 A tabela \ref{tab:specP900} mostra algumas das especificações mais importantes a serem levadas em consideração:
 
@@ -86,7 +86,7 @@ Em modo comando, pode-se verificar todas as configurações de um módulo pelos val
 \item Comando AT\&F1 - Definir registradores para padrão de fábrica de coordenador primário.
 \item Comando AT\&W - Escrever mudanças na memória.
 \item Comando AT\&V - Mostrar configurações (imprimi na tela os dados que estão na parte branca da imagem).
-\item Registrador S101 - Modo de operação está definido com 4, modo de coordenador primário.
+\item Registrador S101 - Modo de operação está definido como 4, modo de coordenador primário.
 \item Registrador S104 - Endereço de rede em seu valor padrão de fábrica, todas as unidades de rede da malha devem ter esse mesmo valor. Recomenda-se mudar para um valor diferente do padrão.
 \item Registrador S133 - Tipo de rede, 2 ou 3 para em malha.
 \item Registrador S140 - Endereço de destino. O padrão é FF:FF:FF:FF:FF:FF que significa que os pacotes serão enviados para todos os dispositivos na rede. Isso pode ser alterado para o endereço MAC de um dispositivo específico.
@@ -102,6 +102,18 @@ Em modo comando, pode-se verificar todas as configurações de um módulo pelos val
 Mais exemplos de configurações podem ser encontradas na documentação, referência~\cite{manualRadio}, assim como configurações avançadas de como evitar colisões na rede, de roteamento de rede e de sincronização de rede. Como a rede em questão é pequena e simples, decidiu-se não detalhar essas configurações aqui, pois elas não serão utilizadas no estado atual do projeto.
 
 
+% ------------------- Diagrama Geral
+
+\section{Diagrama completo de um VANT}
+
+Um diagrama completo de um VANT autônomo projetado pode ser visto na figura \ref{fig:diagGeral}. Para simplificação do diagrama, representou-se o Pixhawk e alguns elementos ligados a ele como um só bloco. Um diagrama mais detalhado das conexões desses componentes ao Pixhawk pode ser visto na figura \ref{fig:diagPixhawk}. Os servo motores, o {\it electronic speed controller} (ESC), o lidar e o receptor de rádio devem ser conectados a trilha PWM do Pixhawk. Os demais componentes conectados ao Pixhawk devem ser conectados as portas que contém seu nome. A conexão entre o Pixhawk e o computador Gumstix Overo COM deve ocorrer por um cabo USB ou FTDI, conforme mencionado na seção 2.5. O {\it modem} P900 pode ser conectado à Gumstix Overo COM por um cabo serial RS232-USB. 
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = .7\textwidth]{figs/diagGeral}
+\caption{Diagrama completo dos componentes de um VANT projetado.}
+\label{fig:diagGeral}
+\end{figure}
 
 
 
